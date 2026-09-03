@@ -422,8 +422,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   <div class="entry-card">
     <div class="tabs">
-      <button class="tab-btn active" data-view="entry" data-person="Prospect1">Prospect 1 — Lançamento Diário</button>
-      <button class="tab-btn" data-view="entry" data-person="Luis">Luis — Lançamento Diário</button>
+      <button class="tab-btn active" data-view="entry" data-person="Luis">Luis — Lançamento Diário</button>
+      <button class="tab-btn" data-view="entry" data-person="Prospect1">Prospect 1 — Lançamento Diário</button>
       <button class="tab-btn" data-view="entry" data-person="Prospect2">Prospect 2 — Lançamento Diário</button>
       <button class="tab-btn" data-view="thermo">🌡️ Termômetro de Performance</button>
       <div class="tab-actions" id="entryActions">
@@ -515,7 +515,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   function cloneSeed(seed){ return JSON.parse(JSON.stringify(seed)); }
 
   let DATA = { Prospect1: cloneSeed(SEED_PROSPECT1), Prospect2: cloneSeed(SEED_PROSPECT2), Luis: cloneSeed(SEED_LUIS) };
-  let activePerson = "Prospect1";
+  let activePerson = "Luis";
   const PERSON_LABELS = { Prospect1:"Prospect 1", Prospect2:"Prospect 2", Luis:"Luis" };
   let trendChart=null, volChart=null, gaugeCharts=[];
   let fileHandle = null; // FileSystemFileHandle (quando suportado pelo navegador)

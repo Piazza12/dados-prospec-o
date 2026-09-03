@@ -380,7 +380,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     <div class="mark"></div>
     <div>
       <h1>BI de Prospecção — Conexlog Cargas Expressas</h1>
-      <p>Ionara (Outbound) &amp; Luis (Outbound) · Coordenação de Prospecção</p>
+      <p>Prospect 1 (Outbound) &amp; Prospect 2 (Outbound) &amp; Luis (Outbound) · Coordenação de Prospecção</p>
     </div>
   </div>
   <div class="filters">
@@ -388,7 +388,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       <label for="fColab">Colaborador</label>
       <select id="fColab">
         <option value="todos">Equipe (Todos)</option>
-        <option value="Ionara">Ionara</option>
+        <option value="Prospect1">Prospect 1</option>
+        <option value="Prospect2">Prospect 2</option>
         <option value="Luis">Luis</option>
       </select>
     </div>
@@ -421,7 +422,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   <div class="entry-card">
     <div class="tabs">
-      <button class="tab-btn active" data-view="entry" data-person="Ionara">Ionara — Lançamento Diário</button>
+      <button class="tab-btn active" data-view="entry" data-person="Prospect1">Prospect 1 — Lançamento Diário</button>
+      <button class="tab-btn" data-view="entry" data-person="Prospect2">Prospect 2 — Lançamento Diário</button>
       <button class="tab-btn" data-view="entry" data-person="Luis">Luis — Lançamento Diário</button>
       <button class="tab-btn" data-view="thermo">🌡️ Termômetro de Performance</button>
       <div class="tab-actions" id="entryActions">
@@ -464,7 +466,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   </div>
 
 
-  <div class="footer-note">Preencha os dados diários nas abas Ionara / Luis — todo o painel acima recalcula automaticamente. Métricas consideram apenas dias úteis (segunda a sexta). Dados salvos neste navegador.</div>
+  <div class="footer-note">Preencha os dados diários nas abas Prospect 1 / Prospect 2 / Luis — todo o painel acima recalcula automaticamente. Métricas consideram apenas dias úteis (segunda a sexta). Dados salvos neste navegador.</div>
 </div>
 
 <div id="modalOverlay" class="modal-overlay hidden">
@@ -500,8 +502,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   function brDate(iso){ const [y,m,d]=iso.split("-"); return d+"/"+m+"/"+y; }
 
   // Dados reais importados de controle_prospecção.xlsx (abas Ionara e Cristine)
-  const SEED_IONARA = [{"date": "2026-07-01", "ligacoes": 26, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-02", "ligacoes": 47, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-03", "ligacoes": 41, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-06", "ligacoes": 45, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-07", "ligacoes": 42, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-08", "ligacoes": 75, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-09", "ligacoes": 46, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-10", "ligacoes": 86, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-13", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-14", "ligacoes": 42, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-15", "ligacoes": 51, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-16", "ligacoes": 38, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-17", "ligacoes": 30, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-20", "ligacoes": 53, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-21", "ligacoes": 63, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-22", "ligacoes": 38, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-23", "ligacoes": 21, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-24", "ligacoes": 70, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-27", "ligacoes": 27, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-28", "ligacoes": 95, "reunioesAgendadas": 1, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-29", "ligacoes": 47, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-30", "ligacoes": 84, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-31", "ligacoes": 35, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}];
-  const SEED_CRISTINE = [{"date": "2026-07-01", "ligacoes": 29, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-02", "ligacoes": 6, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-03", "ligacoes": 18, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-06", "ligacoes": 20, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-07", "ligacoes": 0, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-08", "ligacoes": 13, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-09", "ligacoes": 10, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-10", "ligacoes": 13, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-13", "ligacoes": 8, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-14", "ligacoes": 13, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-15", "ligacoes": 14, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-16", "ligacoes": 16, "reunioesAgendadas": 2, "reunioesRealizadas": 2, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-17", "ligacoes": 16, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-20", "ligacoes": 19, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-21", "ligacoes": 25, "reunioesAgendadas": 1, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-22", "ligacoes": 18, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-23", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-24", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-27", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-28", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-29", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-30", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-31", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}];
+  const SEED_PROSPECT1 = [{"date": "2026-09-01", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-02", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-03", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-04", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-05", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-06", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-07", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-08", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-09", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-10", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-11", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-12", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-13", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-14", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-15", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-16", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-17", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-18", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-19", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-20", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-21", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-22", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-23", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-24", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-25", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-26", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-27", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-28", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-29", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-30", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}];
+  const SEED_PROSPECT2 = [{"date": "2026-09-01", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-02", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-03", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-04", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-05", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-06", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-07", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-08", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-09", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-10", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-11", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-12", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-13", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-14", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-15", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-16", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-17", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-18", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-19", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-20", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-21", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-22", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-23", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-24", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-25", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-26", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-27", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-28", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-29", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-09-30", "ligacoes": 0, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}];
   const SEED_LUIS = [{"date": "2026-07-24", "ligacoes": 19, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-27", "ligacoes": 128, "reunioesAgendadas": 0, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-28", "ligacoes": 64, "reunioesAgendadas": 2, "reunioesRealizadas": 1, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-29", "ligacoes": 36, "reunioesAgendadas": 2, "reunioesRealizadas": 2, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-30", "ligacoes": 18, "reunioesAgendadas": 2, "reunioesRealizadas": 2, "leads": 0, "mql": 0, "sql": 0}, {"date": "2026-07-31", "ligacoes": 21, "reunioesAgendadas": 2, "reunioesRealizadas": 0, "leads": 0, "mql": 0, "sql": 0}];
 
   function buildEmptyData(){
@@ -517,8 +519,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   function cloneSeed(seed){ return JSON.parse(JSON.stringify(seed)); }
 
-  let DATA = { Ionara: cloneSeed(SEED_IONARA), Cristine: cloneSeed(SEED_CRISTINE), Luis: cloneSeed(SEED_LUIS) };
-  let activePerson = "Ionara";
+  let DATA = { Prospect1: cloneSeed(SEED_PROSPECT1), Prospect2: cloneSeed(SEED_PROSPECT2), Luis: cloneSeed(SEED_LUIS) };
+  let activePerson = "Prospect1";
+  const PERSON_LABELS = { Prospect1:"Prospect 1", Prospect2:"Prospect 2", Luis:"Luis" };
   let trendChart=null, volChart=null, gaugeCharts=[];
   let fileHandle = null; // FileSystemFileHandle (quando suportado pelo navegador)
 
@@ -527,9 +530,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   // ligacoesDia: meta diária de ligações · reunioesAgendadasMes / reunioesRealizadasMes: metas mensais
   // ---------------------------------------------------------------
   const DEFAULT_METAS = {
-    Ionara:   { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
-    Cristine: { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
-    Luis:     { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
+    Prospect1: { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
+    Prospect2: { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
+    Luis:      { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
   };
   let METAS = JSON.parse(JSON.stringify(DEFAULT_METAS));
 
@@ -538,7 +541,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       const raw = localStorage.getItem("prospects-metas-v2");
       if(raw){
         const parsed = JSON.parse(raw);
-        ["Ionara","Cristine","Luis"].forEach(p=>{
+        ["Prospect1","Prospect2","Luis"].forEach(p=>{
           METAS[p] = Object.assign({}, DEFAULT_METAS[p], parsed[p]||{});
         });
       }
@@ -611,15 +614,15 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       });
       return out.length ? out : null;
     }
-    const ionara = extractPerson("Ionara");
-    const cristine = extractPerson("Cristine");
+    const prospect1 = extractPerson("Prospect 1");
+    const prospect2 = extractPerson("Prospect 2");
     const luis = extractPerson("Luis");
-    if(!ionara && !cristine && !luis) throw new Error("Não encontrei as abas \"Ionara\", \"Cristine\" ou \"Luis\" nesse arquivo.");
-    if(ionara) DATA.Ionara = ionara;
-    if(cristine) DATA.Cristine = cristine;
+    if(!prospect1 && !prospect2 && !luis) throw new Error("Não encontrei as abas \"Prospect 1\", \"Prospect 2\" ou \"Luis\" nesse arquivo.");
+    if(prospect1) DATA.Prospect1 = prospect1;
+    if(prospect2) DATA.Prospect2 = prospect2;
     if(luis) DATA.Luis = luis;
-    localStorage.setItem("prospects-ionara", JSON.stringify(DATA.Ionara));
-    localStorage.setItem("prospects-cristine", JSON.stringify(DATA.Cristine));
+    localStorage.setItem("prospects-prospect1", JSON.stringify(DATA.Prospect1));
+    localStorage.setItem("prospects-prospect2", JSON.stringify(DATA.Prospect2));
     localStorage.setItem("prospects-luis", JSON.stringify(DATA.Luis));
     localStorage.setItem("prospects-lastsync", new Date().toISOString());
   }
@@ -637,7 +640,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   }
 
   function applyDateBoundsFromData(){
-    const allDates = [...DATA.Ionara, ...DATA.Cristine, ...DATA.Luis].map(r=>r.date).filter(Boolean);
+    const allDates = [...DATA.Prospect1, ...DATA.Prospect2, ...DATA.Luis].map(r=>r.date).filter(Boolean);
     if(!allDates.length) return;
     const min = allDates.reduce((a,b)=> a<b?a:b);
     const max = allDates.reduce((a,b)=> a>b?a:b);
@@ -707,15 +710,15 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     }
   }
 
-  const SEED_VERSION = "2026-08-04-csv-01";
+  const SEED_VERSION = "2026-09-01-prospect-rename";
 
   async function loadData(){
     // 0) se os dados-base (seed) foram atualizados desde a última visita, descarta o cache antigo
     try{
       const storedVersion = localStorage.getItem("prospects-seed-version");
       if(storedVersion !== SEED_VERSION){
-        DATA = { Ionara: cloneSeed(SEED_IONARA), Cristine: cloneSeed(SEED_CRISTINE), Luis: cloneSeed(SEED_LUIS) };
-        ["Ionara","Cristine","Luis"].forEach(p=> localStorage.setItem("prospects-" + p.toLowerCase(), JSON.stringify(DATA[p])));
+        DATA = { Prospect1: cloneSeed(SEED_PROSPECT1), Prospect2: cloneSeed(SEED_PROSPECT2), Luis: cloneSeed(SEED_LUIS) };
+        ["Prospect1","Prospect2","Luis"].forEach(p=> localStorage.setItem("prospects-" + p.toLowerCase(), JSON.stringify(DATA[p])));
         localStorage.setItem("prospects-seed-version", SEED_VERSION);
         localStorage.removeItem("prospects-lastsync");
       }
@@ -723,7 +726,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
     // 1) tenta carregar do cache local (última sincronização conhecida)
     let hasCache = false;
-    for(const person of ["Ionara","Cristine","Luis"]){
+    for(const person of ["Prospect1","Prospect2","Luis"]){
       try{
         const raw = localStorage.getItem("prospects-" + person.toLowerCase());
         if(raw){
@@ -761,7 +764,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     const colab = document.getElementById("fColab").value;
     const ini = document.getElementById("fIni").value;
     const fim = document.getElementById("fFim").value;
-    const people = colab === "todos" ? ["Ionara","Cristine","Luis"] : [colab];
+    const people = colab === "todos" ? ["Prospect1","Prospect2","Luis"] : [colab];
     const rows = [];
     people.forEach(p=>{
       DATA[p].forEach(row=>{
@@ -788,30 +791,27 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   // ---------------------------------------------------------------
   // KPI cards
   // ---------------------------------------------------------------
-  const CRISTINE_LAST_DAY = "2026-07-23";
-
   function renderKpis(rows){
     const t = totalsFor(rows);
-    const porPessoa = {Ionara:0, Cristine:0, Luis:0};
-    const ligPorPessoa = {Ionara:0, Cristine:0, Luis:0};
-    const agendadasPorPessoa = {Ionara:0, Cristine:0, Luis:0};
+    const porPessoa = {Prospect1:0, Prospect2:0, Luis:0};
+    const ligPorPessoa = {Prospect1:0, Prospect2:0, Luis:0};
+    const agendadasPorPessoa = {Prospect1:0, Prospect2:0, Luis:0};
     rows.forEach(r=>{
-      if(r.person === "Cristine" && r.date > CRISTINE_LAST_DAY) return;
       porPessoa[r.person] = (porPessoa[r.person]||0) + (Number(r.reunioesRealizadas)||0);
       ligPorPessoa[r.person] = (ligPorPessoa[r.person]||0) + (Number(r.ligacoes)||0);
       agendadasPorPessoa[r.person] = (agendadasPorPessoa[r.person]||0) + (Number(r.reunioesAgendadas)||0);
     });
     const cards = [
       {lbl:"Ligações Realizadas", val:t.ligacoes, cap:"total no período"},
-      {lbl:"Reuniões Realizadas — Cristine", val:porPessoa.Cristine, subs:[
-        {label:"Reuniões agendadas", val:agendadasPorPessoa.Cristine},
-        {label:"Reuniões realizadas", val:porPessoa.Cristine},
-        {label:"Ligações realizadas", val:ligPorPessoa.Cristine},
-      ], cap:"até 23/07/2026 — último dia na Conexlog"},
-      {lbl:"Reuniões Realizadas — Ionara", val:porPessoa.Ionara, subs:[
-        {label:"Reuniões agendadas", val:agendadasPorPessoa.Ionara},
-        {label:"Reuniões realizadas", val:porPessoa.Ionara},
-        {label:"Ligações realizadas", val:ligPorPessoa.Ionara},
+      {lbl:"Reuniões Realizadas — Prospect 1", val:porPessoa.Prospect1, subs:[
+        {label:"Reuniões agendadas", val:agendadasPorPessoa.Prospect1},
+        {label:"Reuniões realizadas", val:porPessoa.Prospect1},
+        {label:"Ligações realizadas", val:ligPorPessoa.Prospect1},
+      ]},
+      {lbl:"Reuniões Realizadas — Prospect 2", val:porPessoa.Prospect2, subs:[
+        {label:"Reuniões agendadas", val:agendadasPorPessoa.Prospect2},
+        {label:"Reuniões realizadas", val:porPessoa.Prospect2},
+        {label:"Ligações realizadas", val:ligPorPessoa.Prospect2},
       ]},
       {lbl:"Reuniões Realizadas — Luis", val:porPessoa.Luis, subs:[
         {label:"Reuniões agendadas", val:agendadasPorPessoa.Luis},
@@ -1070,14 +1070,14 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     const ini = document.getElementById("fIni").value;
     const fim = document.getElementById("fFim").value;
     const grid = document.getElementById("thermoPeopleGrid");
-    const badge = {Ionara:"Outbound", Cristine:"Inbound", Luis:"Outbound"};
+    const badge = {Prospect1:"Outbound", Prospect2:"Outbound", Luis:"Outbound"};
     const rateFields = [
       {key:"ligacoes", label:"Ligações Realizadas", metaField:"ligacoesDia", metaLabel:"ligações/dia"},
       {key:"reunioesAgendadas", label:"Reuniões Agendadas", metaField:"reunioesAgendadasMes", metaLabel:"reuniões/mês"},
       {key:"reunioesRealizadas", label:"Reuniões Realizadas", metaField:"reunioesRealizadasMes", metaLabel:"reuniões/mês"},
     ];
 
-    grid.innerHTML = ["Ionara","Luis"].map(person=>{
+    grid.innerHTML = ["Prospect1","Prospect2","Luis"].map(person=>{
       const rows = DATA[person].filter(r=>r.date>=ini && r.date<=fim && isBusinessDay(r.date));
       const t = totalsFor(rows);
       const metaAbs = personMetaAbs(person);
@@ -1108,7 +1108,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
       return `
       <div class="thermo-person-card">
-        <div class="p-name">${person}</div>
+        <div class="p-name">${PERSON_LABELS[person]||person}</div>
         <span class="p-badge">${badge[person]}</span>
         <div class="gauge-wrap">
           ${buildGaugeSvg(overallPct, 220)}
@@ -1214,7 +1214,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     modalRows = (row.reunioes || []).map(m => typeof m === "string"
       ? {empresa:m, anexos:[]}
       : {empresa:m.empresa||"", anexos:Array.isArray(m.anexos) ? m.anexos.slice() : []});
-    document.getElementById("modalDate").textContent = brDate(row.date) + " — " + activePerson;
+    document.getElementById("modalDate").textContent = brDate(row.date) + " — " + (PERSON_LABELS[activePerson]||activePerson);
     renderModalRows();
     document.getElementById("modalOverlay").classList.remove("hidden");
   }
@@ -1381,7 +1381,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     const header = ["Data","Colaborador","Ligações Realizadas","Reuniões Agendadas","Reuniões Realizadas"];
     const lines = [header.join(";")];
     rows.forEach(r=>{
-      lines.push([brDate(r.date), r.person, r.ligacoes, r.reunioesAgendadas, r.reunioesRealizadas].join(";"));
+      lines.push([brDate(r.date), (PERSON_LABELS[r.person]||r.person), r.ligacoes, r.reunioesAgendadas, r.reunioesRealizadas].join(";"));
     });
     const blob = new Blob([lines.join("\n")], {type:"text/csv;charset=utf-8;"});
     const url = URL.createObjectURL(blob);
@@ -1451,7 +1451,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
       document.getElementById("btnExport").addEventListener("click", exportCsv);
       document.getElementById("btnReset").addEventListener("click", ()=>{
-        if(confirm(`Limpar todos os dados lançados de ${activePerson}? Esta ação não pode ser desfeita.`)){
+        if(confirm(`Limpar todos os dados lançados de ${PERSON_LABELS[activePerson]||activePerson}? Esta ação não pode ser desfeita.`)){
           DATA[activePerson] = buildEmptyData();
           saveData(activePerson);
           renderAll();

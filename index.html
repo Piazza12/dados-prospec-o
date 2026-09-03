@@ -798,6 +798,11 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     });
     const cards = [
       {lbl:"Ligações Realizadas", val:t.ligacoes, cap:"total no período"},
+      {lbl:"Reuniões Realizadas — Luis", val:porPessoa.Luis, subs:[
+        {label:"Reuniões agendadas", val:agendadasPorPessoa.Luis},
+        {label:"Reuniões realizadas", val:porPessoa.Luis},
+        {label:"Ligações realizadas", val:ligPorPessoa.Luis},
+      ]},
       {lbl:"Reuniões Realizadas — Prospect 1", val:porPessoa.Prospect1, subs:[
         {label:"Reuniões agendadas", val:agendadasPorPessoa.Prospect1},
         {label:"Reuniões realizadas", val:porPessoa.Prospect1},
@@ -807,11 +812,6 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         {label:"Reuniões agendadas", val:agendadasPorPessoa.Prospect2},
         {label:"Reuniões realizadas", val:porPessoa.Prospect2},
         {label:"Ligações realizadas", val:ligPorPessoa.Prospect2},
-      ]},
-      {lbl:"Reuniões Realizadas — Luis", val:porPessoa.Luis, subs:[
-        {label:"Reuniões agendadas", val:agendadasPorPessoa.Luis},
-        {label:"Reuniões realizadas", val:porPessoa.Luis},
-        {label:"Ligações realizadas", val:ligPorPessoa.Luis},
       ]},
     ];
     const el = document.getElementById("kpiRow");

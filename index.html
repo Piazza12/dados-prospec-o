@@ -525,9 +525,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   // ligacoesDia: meta diária de ligações · reunioesAgendadasMes / reunioesRealizadasMes: metas mensais
   // ---------------------------------------------------------------
   const DEFAULT_METAS = {
-    Prospect1: { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
-    Prospect2: { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
-    Luis:      { ligacoesDia: 25, reunioesAgendadasMes: 43, reunioesRealizadasMes: 43 },
+    Prospect1: { ligacoesDia: 25, reunioesAgendadasMes: 42, reunioesRealizadasMes: 42 },
+    Prospect2: { ligacoesDia: 25, reunioesAgendadasMes: 42, reunioesRealizadasMes: 42 },
+    Luis:      { ligacoesDia: 25, reunioesAgendadasMes: 42, reunioesRealizadasMes: 42 },
   };
   let METAS = JSON.parse(JSON.stringify(DEFAULT_METAS));
 
@@ -1067,12 +1067,10 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     const grid = document.getElementById("thermoPeopleGrid");
     const badge = {Prospect1:"Outbound", Prospect2:"Outbound", Luis:"Outbound"};
     const rateFields = [
-      {key:"ligacoes", label:"Ligações Realizadas", metaField:"ligacoesDia", metaLabel:"ligações/dia"},
-      {key:"reunioesAgendadas", label:"Reuniões Agendadas", metaField:"reunioesAgendadasMes", metaLabel:"reuniões/mês"},
       {key:"reunioesRealizadas", label:"Reuniões Realizadas", metaField:"reunioesRealizadasMes", metaLabel:"reuniões/mês"},
     ];
 
-    grid.innerHTML = ["Prospect1","Prospect2","Luis"].map(person=>{
+    grid.innerHTML = ["Luis","Prospect1","Prospect2"].map(person=>{
       const rows = DATA[person].filter(r=>r.date>=ini && r.date<=fim && isBusinessDay(r.date));
       const t = totalsFor(rows);
       const metaAbs = personMetaAbs(person);
@@ -1108,7 +1106,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         <div class="gauge-wrap">
           ${buildGaugeSvg(overallPct, 220)}
           <div class="gauge-pct" style="color:${bandColor(overallPct)}">${overallPct.toFixed(0)}%</div>
-          <div class="gauge-cap">${bandLabel(overallPct)} · média das 3 métricas</div>
+          <div class="gauge-cap">${bandLabel(overallPct)} · Reuniões Realizadas</div>
         </div>
         ${statsHtml}
       </div>`;

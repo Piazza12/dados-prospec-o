@@ -114,7 +114,24 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   }
   .filters select option{color:#111;}
 
-  .wrap{max-width:1360px; margin:0 auto; padding:22px 28px 60px;}
+  .wrap{max-width:1360px; margin:0 auto; padding:22px 28px 60px; display:flex; gap:22px; align-items:flex-start;}
+  .sidebar{
+    width:230px; flex:0 0 230px; display:flex; flex-direction:column; gap:4px;
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:10px; position:sticky; top:16px;
+  }
+  .sidebar .tab-btn{
+    width:100%; text-align:left; border-radius:8px; border-bottom:none;
+    border-left:3px solid transparent; padding:12px 14px;
+  }
+  .sidebar .tab-btn.active{background:var(--navy); color:#fff; border-left-color:var(--gold);}
+  .main-col{flex:1; min-width:0; display:flex; flex-direction:column; gap:22px;}
+  @media (max-width: 800px){
+    .wrap{flex-direction:column;}
+    .sidebar{width:100%; flex-direction:row; overflow-x:auto; position:static;}
+    .sidebar .tab-btn{border-left:none; border-bottom:3px solid transparent; flex:0 0 auto; white-space:nowrap;}
+    .sidebar .tab-btn.active{border-bottom-color:var(--gold);}
+  }
 
   /* ---------- Sync bar ---------- */
   .syncbar{
@@ -204,7 +221,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     background:none; border:none; cursor:pointer; border-bottom:3px solid transparent;
   }
   .tab-btn.active{color:var(--navy-dark); border-bottom-color:var(--gold); background:#fff;}
-  .tab-actions{margin-left:auto; display:flex; align-items:center; gap:8px; padding:0 14px;}
+  .tab-actions{display:flex; align-items:center; justify-content:flex-end; gap:8px; padding:12px 14px; border-bottom:1px solid var(--border); background:#FAFBFC;}
   .btn{
     border:1px solid var(--border); background:#fff; color:var(--navy-dark);
     padding:6px 12px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;
@@ -439,21 +456,23 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
 <div class="wrap">
 
+  <nav class="sidebar" id="sidebarNav">
+    <button class="tab-btn active" data-view="entry" data-person="Luis">Luis — Lançamento Diário</button>
+    <button class="tab-btn" data-view="entry" data-person="Prospect1">Prospect 1 — Lançamento Diário</button>
+    <button class="tab-btn" data-view="entry" data-person="Prospect2">Prospect 2 — Lançamento Diário</button>
+    <button class="tab-btn" data-view="thermo">🌡️ Termômetro de Performance</button>
+  </nav>
+
+  <div class="main-col">
+
   <div class="kpis" id="kpiRow"></div>
 
   <div class="entry-card">
-    <div class="tabs">
-      <button class="tab-btn active" data-view="entry" data-person="Luis">Luis — Lançamento Diário</button>
-      <button class="tab-btn" data-view="entry" data-person="Prospect1">Prospect 1 — Lançamento Diário</button>
-      <button class="tab-btn" data-view="entry" data-person="Prospect2">Prospect 2 — Lançamento Diário</button>
-      <button class="tab-btn" data-view="thermo">🌡️ Termômetro de Performance</button>
+    <div id="entryPanel">
       <div class="tab-actions" id="entryActions">
         <button class="btn" id="btnExport">Exportar CSV</button>
         <button class="btn danger" id="btnReset">Limpar dados desta aba</button>
       </div>
-    </div>
-
-    <div id="entryPanel">
       <div class="table-scroll">
         <table class="entry" id="entryTable">
           <thead>
@@ -486,8 +505,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     </div>
   </div>
 
-
   <div class="footer-note">Preencha os dados diários nas abas Prospect 1 / Prospect 2 / Luis — todo o painel acima recalcula automaticamente. Métricas consideram apenas dias úteis (segunda a sexta). Dados salvos neste navegador.</div>
+  </div>
 </div>
 
 <div id="modalOverlay" class="modal-overlay hidden">

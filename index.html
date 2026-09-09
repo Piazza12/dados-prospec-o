@@ -454,6 +454,18 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   </div>
 </div>
 
+<div class="syncbar" id="adminBar">
+  <div class="sync-status" id="adminStatus">
+    <span class="sync-dot" id="adminDot"></span>
+    <span id="adminStatusText">Modo Admin desativado — dados abrem em modo leitura para todos</span>
+  </div>
+  <div class="sync-actions">
+    <button class="btn" id="btnAdminToggle">🔐 Ativar Modo Admin</button>
+    <button class="btn primary hidden" id="btnPublish">☁️ Publicar para todos</button>
+    <button class="btn danger hidden" id="btnAdminLogout">Sair do Modo Admin</button>
+  </div>
+</div>
+
 <div class="wrap">
 
   <nav class="sidebar" id="sidebarNav">
@@ -506,6 +518,30 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   </div>
 
   <div class="footer-note">Preencha os dados diários nas abas Prospect 1 / Prospect 2 / Luis — todo o painel acima recalcula automaticamente. Métricas consideram apenas dias úteis (segunda a sexta). Dados salvos neste navegador.</div>
+  </div>
+</div>
+
+<div id="adminTokenModal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>Ativar Modo Admin</h3>
+      <button type="button" class="modal-close" id="adminModalClose" title="Fechar">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12.5px; color:var(--text-muted); margin:0 0 12px;">
+        Cole aqui um Personal Access Token do GitHub (fine-grained) com permissão
+        <strong>Contents: Read and write</strong> no repositório <code>dados-prospec-o</code>.
+        O token fica salvo só neste navegador — nunca é enviado a mais ninguém além do GitHub.
+      </p>
+      <input type="password" id="adminTokenInput" placeholder="github_pat_..." style="width:100%; box-sizing:border-box; padding:8px 10px; border:1px solid var(--border); border-radius:6px; font-size:12.5px;">
+    </div>
+    <div class="modal-footer">
+      <span></span>
+      <div class="modal-footer-actions">
+        <button type="button" class="btn" id="adminModalCancel">Cancelar</button>
+        <button type="button" class="btn primary" id="adminModalSave">Salvar e ativar</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -727,6 +763,100 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     }catch(e){ return false; }
   }
 
+  // ---------------------------------------------------------------
+  // Modo Admin — publicar dados para todos via GitHub API
+  // ---------------------------------------------------------------
+  function getAdminToken(){
+    try{ return localStorage.getItem("gh-admin-token") || ""; }catch(e){ return ""; }
+  }
+
+  function setAdminStatus(text, ok){
+    const dot = document.getElementById("adminDot");
+    const txt = document.getElementById("adminStatusText");
+    dot.className = "sync-dot" + (ok ? " ok" : "");
+    txt.textContent = text;
+  }
+
+  function refreshAdminUI(){
+    const token = getAdminToken();
+    const active = !!token;
+    document.getElementById("btnAdminToggle").classList.toggle("hidden", active);
+    document.getElementById("btnPublish").classList.toggle("hidden", !active);
+    document.getElementById("btnAdminLogout").classList.toggle("hidden", !active);
+    setAdminStatus(active
+      ? "🟢 Modo Admin ativo — suas edições ficam só neste navegador até você publicar"
+      : "Modo Admin desativado — dados abrem em modo leitura para todos", active);
+  }
+
+  function openAdminTokenModal(){
+    document.getElementById("adminTokenInput").value = "";
+    document.getElementById("adminTokenModal").classList.remove("hidden");
+  }
+  function closeAdminTokenModal(){
+    document.getElementById("adminTokenModal").classList.add("hidden");
+  }
+  function saveAdminToken(){
+    const val = document.getElementById("adminTokenInput").value.trim();
+    if(!val){ alert("Cole um token válido."); return; }
+    try{ localStorage.setItem("gh-admin-token", val); }catch(e){}
+    closeAdminTokenModal();
+    refreshAdminUI();
+  }
+  function logoutAdmin(){
+    try{ localStorage.removeItem("gh-admin-token"); }catch(e){}
+    refreshAdminUI();
+  }
+
+  function utf8ToBase64(str){
+    return btoa(unescape(encodeURIComponent(str)));
+  }
+
+  async function publishData(){
+    const token = getAdminToken();
+    if(!token){ alert("Ative o Modo Admin primeiro."); return; }
+    const btn = document.getElementById("btnPublish");
+    btn.disabled = true;
+    setAdminStatus("☁️ Publicando…", true);
+    try{
+      const getRes = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_DATA_PATH}`, {
+        headers:{ "Authorization":"token " + token, "Accept":"application/vnd.github+json" }
+      });
+      if(!getRes.ok) throw new Error("Não consegui ler o data.json atual (confira o token).");
+      const getJson = await getRes.json();
+
+      const payload = {
+        Prospect1: DATA.Prospect1,
+        Prospect2: DATA.Prospect2,
+        Luis: DATA.Luis,
+        METAS: METAS,
+        updatedAt: new Date().toISOString()
+      };
+      const putRes = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_DATA_PATH}`, {
+        method:"PUT",
+        headers:{
+          "Authorization":"token " + token,
+          "Accept":"application/vnd.github+json",
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify({
+          message: "Atualização via Modo Admin do painel — " + new Date().toLocaleString("pt-BR"),
+          content: utf8ToBase64(JSON.stringify(payload)),
+          branch: "main",
+          sha: getJson.sha
+        })
+      });
+      if(!putRes.ok){
+        const errJson = await putRes.json().catch(()=>({}));
+        throw new Error(errJson.message || "Falha ao publicar. Confira se o token tem permissão Contents: Read and write.");
+      }
+      setAdminStatus("✅ Publicado! Pode levar 1-2 min para todo mundo ver a versão nova.", true);
+    }catch(err){
+      setAdminStatus("❌ " + err.message, false);
+    }finally{
+      btn.disabled = false;
+    }
+  }
+
   async function resync(){
     try{
       if(fileHandle){
@@ -746,37 +876,65 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   }
 
   const SEED_VERSION = "2026-09-03-csv-agosto-v3";
+  const GH_OWNER = "Piazza12";
+  const GH_REPO = "dados-prospec-o";
+  const GH_DATA_PATH = "data.json";
+
+  async function fetchPublishedData(){
+    try{
+      const res = await fetch("./data.json", {cache:"no-store"});
+      if(!res.ok) return null;
+      return await res.json();
+    }catch(e){ return null; }
+  }
 
   async function loadData(){
-    // 0) se os dados-base (seed) foram atualizados desde a última visita, descarta o cache antigo
-    try{
-      const storedVersion = localStorage.getItem("prospects-seed-version");
-      if(storedVersion !== SEED_VERSION){
-        DATA = { Prospect1: cloneSeed(SEED_PROSPECT1), Prospect2: cloneSeed(SEED_PROSPECT2), Luis: cloneSeed(SEED_LUIS) };
-        ["Prospect1","Prospect2","Luis"].forEach(p=> localStorage.setItem("prospects-" + p.toLowerCase(), JSON.stringify(DATA[p])));
-        localStorage.setItem("prospects-seed-version", SEED_VERSION);
-        localStorage.removeItem("prospects-lastsync");
-      }
-    }catch(e){ /* localStorage indisponível — segue com os dados padrão em memória */ }
-
-    // 1) tenta carregar do cache local (última sincronização conhecida)
-    let hasCache = false;
-    for(const person of ["Prospect1","Prospect2","Luis"]){
-      try{
-        const raw = localStorage.getItem("prospects-" + person.toLowerCase());
-        if(raw){
-          const parsed = JSON.parse(raw);
-          if(Array.isArray(parsed) && parsed.length){ DATA[person] = parsed; hasCache = true; }
+    // 0) tenta buscar os dados publicados (compartilhados via data.json no repositório)
+    const published = await fetchPublishedData();
+    if(published){
+      ["Prospect1","Prospect2","Luis"].forEach(p=>{
+        if(Array.isArray(published[p]) && published[p].length){
+          DATA[p] = published[p];
+          try{ localStorage.setItem("prospects-" + p.toLowerCase(), JSON.stringify(DATA[p])); }catch(e){}
         }
-      }catch(e){ /* localStorage indisponível — mantém dados padrão em memória */ }
-    }
-    const lastSync = localStorage.getItem("prospects-lastsync");
-    if(hasCache && lastSync){
-      setSyncStatus("stale", `Última sincronização: ${fmtDateTime(lastSync)} · clique em "Atualizar agora" para buscar dados novos`);
-      document.getElementById("btnResync").classList.remove("hidden");
+      });
+      if(published.METAS){
+        ["Prospect1","Prospect2","Luis"].forEach(p=>{
+          if(published.METAS[p]) METAS[p] = Object.assign({}, DEFAULT_METAS[p], published.METAS[p]);
+        });
+        try{ localStorage.setItem("prospects-metas-v2", JSON.stringify(METAS)); }catch(e){}
+      }
+      try{ localStorage.setItem("prospects-seed-version", SEED_VERSION); }catch(e){}
+      setSyncStatus("ok", `Dados publicados carregados${published.updatedAt ? " · atualizado em " + fmtDateTime(published.updatedAt) : ""}`);
+    } else {
+      // 0b) fallback: se os dados-base (seed) foram atualizados desde a última visita, descarta o cache antigo
+      try{
+        const storedVersion = localStorage.getItem("prospects-seed-version");
+        if(storedVersion !== SEED_VERSION){
+          DATA = { Prospect1: cloneSeed(SEED_PROSPECT1), Prospect2: cloneSeed(SEED_PROSPECT2), Luis: cloneSeed(SEED_LUIS) };
+          ["Prospect1","Prospect2","Luis"].forEach(p=> localStorage.setItem("prospects-" + p.toLowerCase(), JSON.stringify(DATA[p])));
+          localStorage.setItem("prospects-seed-version", SEED_VERSION);
+          localStorage.removeItem("prospects-lastsync");
+        }
+      }catch(e){ /* localStorage indisponível — segue com os dados padrão em memória */ }
+
+      // 1) tenta carregar do cache local (última sincronização conhecida)
+      let hasCache = false;
+      for(const person of ["Prospect1","Prospect2","Luis"]){
+        try{
+          const raw = localStorage.getItem("prospects-" + person.toLowerCase());
+          if(raw){
+            const parsed = JSON.parse(raw);
+            if(Array.isArray(parsed) && parsed.length){ DATA[person] = parsed; hasCache = true; }
+          }
+        }catch(e){ /* localStorage indisponível — mantém dados padrão em memória */ }
+      }
+      setSyncStatus(hasCache ? "stale" : "", hasCache
+        ? "Não foi possível carregar os dados publicados — mostrando a última versão salva neste navegador."
+        : "Não foi possível carregar os dados publicados.");
     }
 
-    // 2) tenta sincronizar automaticamente com o arquivo já autorizado antes
+    // 2) tenta sincronizar automaticamente com o arquivo xlsx já autorizado antes (fluxo opcional antigo)
     const auto = await tryAutoSync();
   }
 
@@ -1474,6 +1632,17 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         }
       });
       document.getElementById("btnResync").addEventListener("click", resync);
+
+      document.getElementById("btnAdminToggle").addEventListener("click", openAdminTokenModal);
+      document.getElementById("adminModalClose").addEventListener("click", closeAdminTokenModal);
+      document.getElementById("adminModalCancel").addEventListener("click", closeAdminTokenModal);
+      document.getElementById("adminModalSave").addEventListener("click", saveAdminToken);
+      document.getElementById("adminTokenModal").addEventListener("click", (e)=>{
+        if(e.target.id === "adminTokenModal") closeAdminTokenModal();
+      });
+      document.getElementById("btnPublish").addEventListener("click", publishData);
+      document.getElementById("btnAdminLogout").addEventListener("click", logoutAdmin);
+      refreshAdminUI();
       document.getElementById("fileInput").addEventListener("change", async (e)=>{
         const file = e.target.files[0];
         if(!file) return;

@@ -152,6 +152,11 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     gap:12px;
     margin-bottom:22px;
   }
+  #funilRow{grid-template-columns:repeat(3, 1fr);}
+  .section-heading{
+    font-size:12px; text-transform:uppercase; letter-spacing:.5px; font-weight:800;
+    color:var(--navy); margin:0 0 10px 2px;
+  }
   .kpi{
     background:var(--navy);
     border-radius:10px;
@@ -479,6 +484,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   <div class="kpis" id="kpiRow"></div>
 
+  <div class="section-heading">Funil Inbound — Visão Geral</div>
+  <div class="kpis" id="funilRow"></div>
+
   <div class="entry-card">
     <div id="entryPanel">
       <div class="tab-actions" id="entryActions">
@@ -490,6 +498,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
           <thead>
             <tr>
               <th style="text-align:left; padding-left:14px;">Data</th>
+              <th>Leads<br>Recebidos</th>
+              <th>Leads no SLA<br>(≤5min)</th>
+              <th>Leads<br>Qualificados</th>
               <th>Ligações<br>Realizadas</th>
               <th>Reuniões<br>Agendadas</th>
               <th>Reuniões<br>Realizadas</th>
@@ -568,10 +579,11 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   const NAVY = "#1F3864", NAVY_LIGHT="#2E4C87", GOLD = "#C9A227", GOLD_LIGHT = "#EFE1B0", GREY="#D8DCE3";
   const METRIC_LABELS = {
+    leads:"Leads Recebidos", mql:"Leads no SLA (≤5min)", sql:"Leads Qualificados",
     ligacoes:"Ligações Realizadas", reunioesAgendadas:"Reuniões Agendadas",
     reunioesRealizadas:"Reuniões Realizadas"
   };
-  const FIELDS = ["ligacoes","reunioesAgendadas","reunioesRealizadas"];
+  const FIELDS = ["leads","mql","sql","ligacoes","reunioesAgendadas","reunioesRealizadas"];
 
   function pad(n){ return n<10 ? "0"+n : ""+n; }
   function isoDate(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()); }
@@ -1026,6 +1038,24 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
             <span class="kpi-sub-val">${s.val.toLocaleString('pt-BR')}</span>
           </div>`).join("")}
         </div>` : ""}
+      </div>`).join("");
+  }
+
+  function renderFunilInbound(rows){
+    const t = totalsFor(rows);
+    const slaPct = pct(t.mql, t.leads) * 100;
+    const qualPct = pct(t.sql, t.leads) * 100;
+    const cards = [
+      {lbl:"Leads Recebidos", val:t.leads, cap:"total no período", isPct:false},
+      {lbl:"% Dentro do SLA (5 min)", val:slaPct, cap:"meta: resposta em até 5 minutos", isPct:true},
+      {lbl:"Taxa de Qualificação", val:qualPct, cap:"leads qualificados / leads recebidos", isPct:true},
+    ];
+    const el = document.getElementById("funilRow");
+    el.innerHTML = cards.map(c=>`
+      <div class="kpi">
+        <div class="lbl">${c.lbl}</div>
+        <div class="val">${c.isPct ? c.val.toFixed(1) + "%" : c.val.toLocaleString('pt-BR')}</div>
+        ${c.cap ? `<div class="cap">${c.cap}</div>` : ""}
       </div>`).join("");
   }
 
@@ -1587,16 +1617,17 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   function renderAll(){
     const rows = getFilteredRows();
     renderKpis(rows);
+    renderFunilInbound(rows);
     renderTable();
     renderThermo();
   }
 
   function exportCsv(){
     const rows = getFilteredRows();
-    const header = ["Data","Colaborador","Ligações Realizadas","Reuniões Agendadas","Reuniões Realizadas"];
+    const header = ["Data","Colaborador","Leads Recebidos","Leads no SLA","Leads Qualificados","Ligações Realizadas","Reuniões Agendadas","Reuniões Realizadas"];
     const lines = [header.join(";")];
     rows.forEach(r=>{
-      lines.push([brDate(r.date), (PERSON_LABELS[r.person]||r.person), r.ligacoes, r.reunioesAgendadas, r.reunioesRealizadas].join(";"));
+      lines.push([brDate(r.date), (PERSON_LABELS[r.person]||r.person), r.leads||0, r.mql||0, r.sql||0, r.ligacoes, r.reunioesAgendadas, r.reunioesRealizadas].join(";"));
     });
     const blob = new Blob([lines.join("\n")], {type:"text/csv;charset=utf-8;"});
     const url = URL.createObjectURL(blob);

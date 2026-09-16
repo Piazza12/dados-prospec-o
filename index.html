@@ -529,7 +529,19 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     <div id="leadsPanel" class="hidden">
       <div class="leads-scope-note" id="leadsScopeNote"></div>
       <div class="kpis" id="leadsKpiRow"></div>
-      <div class="section-heading" style="margin-top:6px;">Métricas Detalhadas (todos os campos da planilha)</div>
+      <div class="section-heading" style="margin-top:6px;">Leads Recebidos — Lançamento Diário (MQL)</div>
+      <div class="table-scroll" style="max-height:260px;">
+        <table class="entry" id="leadsDailyTable">
+          <thead>
+            <tr>
+              <th style="text-align:left; padding-left:14px;">Data</th>
+              <th>Leads Recebidos</th>
+            </tr>
+          </thead>
+          <tbody id="leadsDailyBody"></tbody>
+        </table>
+      </div>
+      <div class="section-heading" style="margin-top:18px;">Métricas Detalhadas (todos os campos da planilha)</div>
       <div class="kpis" id="leadsMetricsRow"></div>
       <div class="section-heading" style="margin-top:6px;">Base Auditável — Leads Individuais</div>
       <div class="table-scroll">
@@ -626,6 +638,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     carregadoEm: "2026-09-16"
   };
   const LEADS_MKT_SETEMBRO = [{"cnpj": "12.526.818/0001-21", "cliente": "GM STUDIOS LTDA", "cidade": "Uberlândia", "uf": "MG", "criadoEm": "2026-09-01", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 7899.75, "ticketMedio": 7899.75}, {"cnpj": "67.815.020/0001-91", "cliente": "MON AMIE ACESSORIOS LTDA", "cidade": "Colombo", "uf": "PR", "criadoEm": "2026-09-01", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1696.52, "ticketMedio": 1696.52}, {"cnpj": "65.108.344/0001-64", "cliente": "METAL MANIA SERVICOS E REBOQUE LTDA", "cidade": "Vila Velha", "uf": "ES", "criadoEm": "2026-09-01", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 4042.7, "ticketMedio": 2021.35}, {"cnpj": "59.329.766/0001-67", "cliente": "PEDALWATER COMERCIO E SOLUCOES LTDA", "cidade": "Sorocaba", "uf": "SP", "criadoEm": "2026-09-01", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1439.44, "ticketMedio": 1439.44}, {"cnpj": "07.329.651/0001-79", "cliente": "NOBREGA INDUSTRIA E COMERCIO DE ARTIGOS ESPORTIVOS LTDA", "cidade": "Florianópolis", "uf": "SC", "criadoEm": "2026-09-01", "qtdeCotacoes": 3, "qtdeEfetivadas": 0, "totalCotado": 18699.89, "ticketMedio": 6233.3}, {"cnpj": "26.465.547/0004-07", "cliente": "MAKER EDUCACAO E TECNOLOGIA LTDA", "cidade": "Serra", "uf": "ES", "criadoEm": "2026-09-02", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 2498.87, "ticketMedio": 1249.44}, {"cnpj": "50.288.431/0001-73", "cliente": "ATX SOLUCOES INTEGRADAS LTDA", "cidade": "Macaé", "uf": "RJ", "criadoEm": "2026-09-02", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 17474.13, "ticketMedio": 17474.13}, {"cnpj": "58.584.364/0001-46", "cliente": "ERYCLYS DA SILVA FREIRE LTDA", "cidade": "São Bernardo do Campo", "uf": "SP", "criadoEm": "2026-09-02", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 1985.06, "ticketMedio": 992.53}, {"cnpj": "14.334.818/0001-55", "cliente": "MAIFREDO EMBALAGENS LTDA", "cidade": "Serra", "uf": "ES", "criadoEm": "2026-09-02", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2668.81, "ticketMedio": 2668.81}, {"cnpj": "90.045.865/0001-67", "cliente": "FORMULA QUIMICA LTDA", "cidade": "Novo Hamburgo", "uf": "RS", "criadoEm": "2026-09-02", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 19345.77, "ticketMedio": 19345.77}, {"cnpj": "27.695.599/0001-81", "cliente": "PEDRO AUGUSTO DA CRUZ  EMPORIO", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-02", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1513.1, "ticketMedio": 1513.1}, {"cnpj": "94.311.032/0001-51", "cliente": "INDUSTRIA DE COSMETICOS EVIDENCY LTDA", "cidade": "Novo Hamburgo", "uf": "RS", "criadoEm": "2026-09-02", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2315.75, "ticketMedio": 2315.75}, {"cnpj": "10.323.803/0001-30", "cliente": "MZLUME COMERCIO DE BRINDES LTDA", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-02", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2117.34, "ticketMedio": 2117.34}, {"cnpj": "22.951.039/0001-27", "cliente": "SPEM INSPECOES DE EQUIPAMENTOS E CALIBRACOES LTDA", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-03", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1383.77, "ticketMedio": 1383.77}, {"cnpj": "09.238.496/0001-00", "cliente": "WA EQUIPAMENTOS E SERVICOS LTDA", "cidade": "Campo Grande", "uf": "MS", "criadoEm": "2026-09-04", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 4718.03, "ticketMedio": 4718.03}, {"cnpj": "29.383.128/0001-63", "cliente": "I L AZEVEDO ENGENHARIA LTDA", "cidade": "Natal", "uf": "RN", "criadoEm": "2026-09-04", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 19982.41, "ticketMedio": 9991.21}, {"cnpj": "04.917.818/0001-24", "cliente": "MODIAL COMERCIO DE ARTIGOS FUNERARIOS LTDA", "cidade": "Guarulhos", "uf": "SP", "criadoEm": "2026-09-08", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 5821.26, "ticketMedio": 2910.63}, {"cnpj": "11.411.938/0001-10", "cliente": "GROW UP INDUSTRIA E COMERCIO DE CONFECCOES LTDA", "cidade": "Cascavel", "uf": "PR", "criadoEm": "2026-09-08", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2262.85, "ticketMedio": 2262.85}, {"cnpj": "95.805.941/0001-09", "cliente": "GIASSI INDUSTRIA E COMERCIO DE CONFECCOES LTDA", "cidade": "Içara", "uf": "SC", "criadoEm": "2026-09-08", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 10522.94, "ticketMedio": 5261.47}, {"cnpj": "56.028.251/0001-39", "cliente": "GAPLAN CAMINHOES LTDA", "cidade": "Campinas", "uf": "SP", "criadoEm": "2026-09-08", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1380.88, "ticketMedio": 1380.88}, {"cnpj": "41.719.758/0001-61", "cliente": "DALLMINAS COMERCIAL LTDA", "cidade": "Belo Horizonte", "uf": "MG", "criadoEm": "2026-09-08", "qtdeCotacoes": 5, "qtdeEfetivadas": 1, "totalCotado": 12139.88, "ticketMedio": 2427.98}, {"cnpj": "73.014.664/0002-64", "cliente": "PROTECT EPI E UNIFORMES LTDA", "cidade": "Uberlândia", "uf": "MG", "criadoEm": "2026-09-08", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2845.85, "ticketMedio": 2845.85}, {"cnpj": "61.112.105/0001-27", "cliente": "AXIA CONSULTORIA EM MARKETING LTDA", "cidade": "Sorocaba", "uf": "SP", "criadoEm": "2026-09-09", "qtdeCotacoes": 1, "qtdeEfetivadas": 1, "totalCotado": 1300.41, "ticketMedio": 1300.41}, {"cnpj": "41.302.343/0001-98", "cliente": "WCV SERVICOS EM ENGENHARIA LTDA", "cidade": "Cotia", "uf": "SP", "criadoEm": "2026-09-09", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1281.94, "ticketMedio": 1281.94}, {"cnpj": "61.453.680/0001-93", "cliente": "MAX ARTEFATOS DE CIMENTO LTDA", "cidade": "Barracão", "uf": "PR", "criadoEm": "2026-09-09", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 3810.62, "ticketMedio": 1905.31}, {"cnpj": "20.323.971/0001-80", "cliente": "MEGA MOTORS COMERCIO LTDA", "cidade": "Piaçabuçu", "uf": "AL", "criadoEm": "2026-09-09", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 6863.12, "ticketMedio": 3431.56}, {"cnpj": "37.993.996/0001-93", "cliente": "EDJANIA MELO SANTOS DE LIMA", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-09", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 7572.74, "ticketMedio": 3786.37}, {"cnpj": "34.729.047/0001-02", "cliente": "NSA DISTRIBUIDORA DE MEDICAMENTOS LTDA", "cidade": "Vila Velha", "uf": "ES", "criadoEm": "2026-09-09", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 5387.39, "ticketMedio": 5387.39}, {"cnpj": "52.296.508/0001-82", "cliente": "CLAUDENIR SANTOS DA SILVA", "cidade": "Campo Bom", "uf": "RS", "criadoEm": "2026-09-09", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 3194.55, "ticketMedio": 3194.55}, {"cnpj": "06.072.009/0001-94", "cliente": "VIRAPLASTIK INDUSTRIA  E COMERCIO DE EMBALAGENS LTDA", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-10", "qtdeCotacoes": 9, "qtdeEfetivadas": 0, "totalCotado": 16074.41, "ticketMedio": 1786.05}, {"cnpj": "03.428.969/0001-56", "cliente": "RUSSULA DO BRASIL LTDA", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-10", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 8275.68, "ticketMedio": 4137.84}, {"cnpj": "15.573.363/0001-93", "cliente": "SERTEC ENGENHARIA  SERVICOS TECNICOS LTDA", "cidade": "Campo Grande", "uf": "MS", "criadoEm": "2026-09-10", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 3294.76, "ticketMedio": 3294.76}, {"cnpj": "26.226.281/0001-99", "cliente": "SPHAIRA NANOTECNOLOGIA LTDA", "cidade": "Ponta Grossa", "uf": "PR", "criadoEm": "2026-09-10", "qtdeCotacoes": 3, "qtdeEfetivadas": 0, "totalCotado": 6304.13, "ticketMedio": 2101.38}, {"cnpj": "02.647.585/0001-61", "cliente": "A A DE ALMEIDA EQUIPAMENTOS AGRO INDUSTRIAL", "cidade": "Motuca", "uf": "SP", "criadoEm": "2026-09-10", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 25307.94, "ticketMedio": 25307.94}, {"cnpj": "10.664.687/0001-13", "cliente": "GROUP LINK NETWORK SA", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-10", "qtdeCotacoes": 4, "qtdeEfetivadas": 0, "totalCotado": 3078.61, "ticketMedio": 769.65}, {"cnpj": "35.081.834/0011-25", "cliente": "FIDES CONTROL SERVICOS DE INSPECOES LTDA", "cidade": "Salvador", "uf": "BA", "criadoEm": "2026-09-10", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 821.9, "ticketMedio": 410.95}, {"cnpj": "35.511.858/0001-03", "cliente": "DANIELLE FELIX DA SILVA DO NASCIMENTO BRINDES", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-10", "qtdeCotacoes": 2, "qtdeEfetivadas": 0, "totalCotado": 3184.18, "ticketMedio": 1592.09}, {"cnpj": "37.456.970/0001-06", "cliente": "ARTEP ENGENHARIA LTDA", "cidade": "Guanambi", "uf": "BA", "criadoEm": "2026-09-10", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2018.43, "ticketMedio": 2018.43}, {"cnpj": "10.997.560/0001-16", "cliente": "KDL TECNOLOGIA EM ILUMINACAO LTDA", "cidade": "Cotia", "uf": "SP", "criadoEm": "2026-09-11", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 5430.25, "ticketMedio": 5430.25}, {"cnpj": "49.595.782/0001-48", "cliente": "GDG ALLIANCE IMPORTACAO E EXPORTACAO LTDA", "cidade": "Campinas", "uf": "SP", "criadoEm": "2026-09-11", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2245.38, "ticketMedio": 2245.38}, {"cnpj": "27.928.493/0001-80", "cliente": "TAF BRASIL LTDA", "cidade": "Jaguaré", "uf": "ES", "criadoEm": "2026-09-11", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 764.27, "ticketMedio": 764.27}, {"cnpj": "13.776.699/0001-28", "cliente": "VALOBRAS INDUSTRIA LTDA", "cidade": "Candeias", "uf": "BA", "criadoEm": "2026-09-11", "qtdeCotacoes": 4, "qtdeEfetivadas": 0, "totalCotado": 19670.19, "ticketMedio": 4917.55}, {"cnpj": "36.241.915/0001-36", "cliente": "NOGUEIRA COMERCIO DE HORTIFRUTIGRANJEIROS LTDA", "cidade": "João Pessoa", "uf": "PB", "criadoEm": "2026-09-11", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1986.1, "ticketMedio": 1986.1}, {"cnpj": "34.174.992/0001-95", "cliente": "WIP PROPRIEDADE INTELECTUAL DE ENTRETENIMENTO LTDA", "cidade": "São Paulo", "uf": "SP", "criadoEm": "2026-09-11", "qtdeCotacoes": 1, "qtdeEfetivadas": 1, "totalCotado": 829.15, "ticketMedio": 829.15}, {"cnpj": "86.703.337/0001-80", "cliente": "INTEROP INFORMATICA LTDA", "cidade": "Porto Alegre", "uf": "RS", "criadoEm": "2026-09-14", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 351.33, "ticketMedio": 351.33}, {"cnpj": "28.224.535/0004-08", "cliente": "SALUTAR RESTAURANTE LTDA", "cidade": "Camaçari", "uf": "BA", "criadoEm": "2026-09-14", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 4723.7, "ticketMedio": 4723.7}, {"cnpj": "16.988.572/0001-60", "cliente": "BPO TECNOLOGIA LTDA", "cidade": "Rio de Janeiro", "uf": "RJ", "criadoEm": "2026-09-14", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 475.24, "ticketMedio": 475.24}, {"cnpj": "27.075.106/0001-00", "cliente": "NOVIDA INDUSTRIA E COMERCIO DE MOVEIS LTDA", "cidade": "Nova Bréscia", "uf": "RS", "criadoEm": "2026-09-15", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 2228.84, "ticketMedio": 2228.84}, {"cnpj": "66.419.757/0001-22", "cliente": "MV INGRESSOS LTDA", "cidade": "Cuiabá", "uf": "MT", "criadoEm": "2026-09-15", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1138.67, "ticketMedio": 1138.67}, {"cnpj": "59.190.222/0001-67", "cliente": "EMPREENDIMENTO SERRA VI LTDA", "cidade": "Vitória", "uf": "ES", "criadoEm": "2026-09-15", "qtdeCotacoes": 1, "qtdeEfetivadas": 0, "totalCotado": 1294.53, "ticketMedio": 1294.53}];
+  const LEADS_RECEBIDOS_DIARIOS = [{"date": "2026-09-01", "qtd": 28}, {"date": "2026-09-02", "qtd": 32}, {"date": "2026-09-03", "qtd": 21}, {"date": "2026-09-04", "qtd": 29}, {"date": "2026-09-07", "qtd": 14}, {"date": "2026-09-08", "qtd": 33}, {"date": "2026-09-09", "qtd": 34}, {"date": "2026-09-10", "qtd": 35}, {"date": "2026-09-11", "qtd": 26}, {"date": "2026-09-14", "qtd": 32}, {"date": "2026-09-15", "qtd": 22}];
 
   function buildEmptyData(person){
     const seedMap = { Prospect1: SEED_PROSPECT1, Prospect2: SEED_PROSPECT2, Luis: SEED_LUIS };
@@ -1212,7 +1225,6 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   // ---------------------------------------------------------------
   function renderLeadsControl(){
     const leads = LEADS_MKT_SETEMBRO;
-    const totalLeads = leads.length;
     const qualificados = leads.filter(l=> l.qtdeCotacoes > 0);
     const fechados = leads.filter(l=> l.qtdeEfetivadas > 0);
     const totalCotacoes = leads.reduce((a,l)=>a+l.qtdeCotacoes, 0);
@@ -1220,19 +1232,23 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     const totalCotadoSum = leads.reduce((a,l)=>a+l.totalCotado, 0);
     const ticketMedioPonderado = totalCotacoes > 0 ? (totalCotadoSum / totalCotacoes) : 0;
     const taxaConversaoPonderada = totalCotacoes > 0 ? (totalEfetivadas / totalCotacoes) * 100 : 0;
-    const pctQualificados = totalLeads > 0 ? (qualificados.length / totalLeads) * 100 : 0;
-    const pctFechados = totalLeads > 0 ? (fechados.length / totalLeads) * 100 : 0;
     const fmtMoeda = (v)=> v.toLocaleString('pt-BR', {style:'currency', currency:'BRL'});
 
-    // Nota de escopo — deixa auditável de onde vêm os números
+    // Leads Recebidos — agora vem do lançamento diário manual (MQL), não mais da contagem da planilha
+    const totalRecebidos = LEADS_RECEBIDOS_DIARIOS.reduce((a,d)=>a+d.qtd, 0);
+    const pctQualificados = totalRecebidos > 0 ? (qualificados.length / totalRecebidos) * 100 : 0;
+    const pctFechados = totalRecebidos > 0 ? (fechados.length / totalRecebidos) * 100 : 0;
+
+    // Nota de escopo — deixa auditável de onde vêm os números (duas fontes distintas)
     document.getElementById("leadsScopeNote").innerHTML =
-      `Fonte: <strong>${LEADS_CONTROL_META.fonte}</strong> · Canal de Entrada: <strong>${LEADS_CONTROL_META.canalEntrada}</strong> ·
-       Criado Em: <strong>${LEADS_CONTROL_META.periodo}</strong> · Carregado em ${brDate(LEADS_CONTROL_META.carregadoEm)} ·
-       ${totalLeads} lead(s) na base — cada linha é auditável na tabela abaixo.`;
+      `<strong>Leads Recebidos</strong>: lançamento diário manual (MQL) — ${LEADS_RECEBIDOS_DIARIOS.length} dia(s) úteis registrados, total ${totalRecebidos}.<br>
+       <strong>Qualificados / Fechados / demais métricas</strong>: planilha <strong>${LEADS_CONTROL_META.fonte}</strong>,
+       Canal de Entrada = <strong>${LEADS_CONTROL_META.canalEntrada}</strong>, Criado Em = <strong>${LEADS_CONTROL_META.periodo}</strong>
+       (${leads.length} lead(s) nessa base) · carregado em ${brDate(LEADS_CONTROL_META.carregadoEm)}.`;
 
     // Cards principais
     const kpiCards = [
-      {lbl:"Leads Recebidos", val:totalLeads, cap:"canal Lead MKT Digital · set/2026"},
+      {lbl:"Leads Recebidos (MQL)", val:totalRecebidos, cap:"soma dos lançamentos diários manuais"},
       {lbl:"Leads Qualificados", val:qualificados.length, cap:`${pctQualificados.toFixed(1)}% dos leads recebidos — avançaram para cotação`},
       {lbl:"Leads Fechados (viraram venda)", val:fechados.length, cap:`${pctFechados.toFixed(1)}% dos leads recebidos — pelo menos 1 cotação efetivada`},
     ];
@@ -1258,7 +1274,19 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         <div class="cap">${c.cap}</div>
       </div>`).join("");
 
-    // Tabela auditável — um lead por linha
+    // Leads Recebidos por dia — base auditável do lançamento manual
+    const dailyBody = document.getElementById("leadsDailyBody");
+    dailyBody.innerHTML = LEADS_RECEBIDOS_DIARIOS.map(d=>`
+      <tr>
+        <td style="text-align:left; padding-left:14px;">${brDate(d.date)}</td>
+        <td>${d.qtd}</td>
+      </tr>`).join("") + `
+      <tr style="font-weight:800; background:var(--navy-dark); color:#fff;">
+        <td style="text-align:left; padding-left:14px;">TOTAL</td>
+        <td>${totalRecebidos}</td>
+      </tr>`;
+
+    // Tabela auditável — um lead por linha (base da planilha, Qualificados/Fechados)
     const body = document.getElementById("leadsTableBody");
     body.innerHTML = leads.map(l=>{
       const status = l.qtdeEfetivadas > 0 ? "Fechado" : (l.qtdeCotacoes > 0 ? "Qualificado" : "Recebido");

@@ -1422,6 +1422,29 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     };
   }
 
+  // Percentual do termômetro ancorado nos números inteiros de reuniões que definem
+  // os tiers de bonificação (70% / 100% / 130%), em vez da razão contínua bruta.
+  // Isso garante que baterendo exatamente 29 reuniões (arredondamento de 42*0.7=29,4)
+  // o termômetro mostre 70%, 42 reuniões mostre 100%, e 55 (42*1.3=54,6) mostre 130% —
+  // alinhado com os números de meta comunicados ao time.
+  function metaPctAnchored(real, monthlyMeta, days){
+    const scale = days/BUSINESS_DAYS_PER_MONTH;
+    const b70 = Math.round(monthlyMeta*0.7*scale);
+    const b100 = Math.round(monthlyMeta*1.0*scale);
+    const b130 = Math.round(monthlyMeta*1.3*scale);
+    if (b100<=0) return 0;
+    if (real <= b70){
+      return b70>0 ? (real/b70)*70 : 0;
+    } else if (real <= b100){
+      return b100>b70 ? 70 + (real-b70)/(b100-b70)*30 : 100;
+    } else if (real <= b130){
+      return b130>b100 ? 100 + (real-b100)/(b130-b100)*30 : 130;
+    } else {
+      const extra = b130>b100 ? (b130-b100) : 1;
+      return 130 + (real-b130)/extra*30;
+    }
+  }
+
   function renderThermo(){
     const ini = document.getElementById("fIni").value;
     const fim = document.getElementById("fFim").value;
@@ -1435,15 +1458,17 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       const rows = DATA[person].filter(r=>r.date>=ini && r.date<=fim && isBusinessDay(r.date));
       const t = totalsFor(rows);
       const metaAbs = personMetaAbs(person);
+      const days = daysInPeriod();
+      const m = METAS[person];
 
       let sum=0;
-      rateFields.forEach(rf=>{ sum += metaAbs[rf.key]>0 ? Math.min((t[rf.key]/metaAbs[rf.key])*100, 999) : 0; });
+      rateFields.forEach(rf=>{ sum += Math.min(metaPctAnchored(t[rf.key], m[rf.metaField], days), 999); });
       const overallPct = sum/rateFields.length;
 
       const statsHtml = rateFields.map(rf=>{
         const real = t[rf.key];
         const metaP = metaAbs[rf.key];
-        const p = metaP>0 ? (real/metaP)*100 : 0;
+        const p = Math.min(metaPctAnchored(real, m[rf.metaField], days), 999);
         return `
         <div class="thermo-stat">
           <div class="s-top">

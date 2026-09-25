@@ -503,7 +503,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
               <th>Ligações<br>Realizadas</th>
               <th>Reuniões<br>Agendadas</th>
               <th>Reuniões<br>Realizadas</th>
-              <th>Taxa Reunião<br>Realizada</th>
+              <th>Taxa de<br>No Show</th>
             </tr>
           </thead>
           <tbody id="entryBody"></tbody>
@@ -1575,7 +1575,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       .filter(r=>isBusinessDay(r.date));
     const body = document.getElementById("entryBody");
     body.innerHTML = rows.map((r)=>{
-      const rate = pct(r.reunioesRealizadas, r.reunioesAgendadas);
+      const noShow = Math.max(0, (Number(r.reunioesAgendadas)||0) - (Number(r.reunioesRealizadas)||0));
+      const noShowRate = pct(noShow, r.reunioesAgendadas);
       return `<tr>
         <td class="date-cell" style="padding-left:14px;">${brDate(r.date)}</td>
         ${FIELDS.map(f=>{
@@ -1586,12 +1587,13 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
           }
           return `<td>${inputHtml}</td>`;
         }).join("")}
-        <td class="rate-cell">${(rate*100).toFixed(1)}%</td>
+        <td class="rate-cell">${(noShowRate*100).toFixed(1)}%</td>
       </tr>`;
     }).join("");
 
     const t = totalsFor(rows);
-    const totalRate = pct(t.reunioesRealizadas, t.reunioesAgendadas);
+    const totalNoShow = Math.max(0, (Number(t.reunioesAgendadas)||0) - (Number(t.reunioesRealizadas)||0));
+    const totalRate = pct(totalNoShow, t.reunioesAgendadas);
     document.getElementById("entryTotals").innerHTML = `
       <td style="text-align:left; padding-left:14px;">TOTAL</td>
       ${FIELDS.map(f=>`<td>${t[f].toLocaleString('pt-BR')}</td>`).join("")}

@@ -171,6 +171,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     border-top:3px solid var(--gold);
   }
   .kpi .lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.5px; color:var(--gold-light); font-weight:700;}
+  /* reserva 2 linhas no título dos cards do painel principal: nomes longos (ex.: Gustavo Xavier) quebram sem desalinhar os números */
+  #kpiRow .kpi .lbl{min-height:2.5em;}
   .kpi .val{font-size:28px; font-weight:800; margin-top:6px; font-variant-numeric:tabular-nums; letter-spacing:-.5px;}
   .kpi .cap{font-size:10.5px; color:rgba(255,255,255,.6); margin-top:2px; font-style:italic;}
   .kpi .kpi-sub-group{
@@ -410,6 +412,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   @media (max-width: 1000px){
     .kpis{grid-template-columns:repeat(2,1fr);}
+    #kpiRow .kpi .lbl{min-height:0;}
     .grid2{grid-template-columns:1fr;}
     .gauges{grid-template-columns:repeat(2,1fr);}
   }
@@ -427,7 +430,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     <div class="mark"></div>
     <div>
       <h1>BI de Prospecção — Conexlog Cargas Expressas</h1>
-      <p>Prospect 1 (Outbound) &amp; Prospect 2 (Outbound) &amp; Luis (Outbound) · Coordenação de Prospecção</p>
+      <p>Gustavo Xavier (Outbound) &amp; Prospect 2 (Outbound) &amp; Luis (Outbound) · Coordenação de Prospecção</p>
     </div>
   </div>
   <div class="filters">
@@ -435,7 +438,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       <label for="fColab">Colaborador</label>
       <select id="fColab">
         <option value="todos">Equipe (Todos)</option>
-        <option value="Prospect1">Prospect 1</option>
+        <option value="Prospect1">Gustavo Xavier</option>
         <option value="Prospect2">Prospect 2</option>
         <option value="Luis">Luis</option>
       </select>
@@ -479,7 +482,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   <nav class="sidebar" id="sidebarNav">
     <button class="tab-btn active" data-view="entry" data-person="Luis">Luis — Lançamento Diário</button>
-    <button class="tab-btn" data-view="entry" data-person="Prospect1">Prospect 1 — Lançamento Diário</button>
+    <button class="tab-btn" data-view="entry" data-person="Prospect1">Gustavo Xavier — Lançamento Diário</button>
     <button class="tab-btn" data-view="entry" data-person="Prospect2">Prospect 2 — Lançamento Diário</button>
     <button class="tab-btn" data-view="thermo">🌡️ Termômetro de Performance</button>
     <button class="tab-btn" data-view="leads">📋 Controle de Leads</button>
@@ -567,7 +570,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     </div>
   </div>
 
-  <div class="footer-note">Preencha os dados diários nas abas Prospect 1 / Prospect 2 / Luis — todo o painel acima recalcula automaticamente. Métricas consideram apenas dias úteis (segunda a sexta). Dados salvos neste navegador.</div>
+  <div class="footer-note">Preencha os dados diários nas abas Gustavo Xavier / Prospect 2 / Luis — todo o painel acima recalcula automaticamente. Métricas consideram apenas dias úteis (segunda a sexta). Dados salvos neste navegador.</div>
   </div>
 </div>
 
@@ -654,7 +657,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   let DATA = { Prospect1: cloneSeed(SEED_PROSPECT1), Prospect2: cloneSeed(SEED_PROSPECT2), Luis: cloneSeed(SEED_LUIS) };
   let activePerson = "Luis";
-  const PERSON_LABELS = { Prospect1:"Prospect 1", Prospect2:"Prospect 2", Luis:"Luis" };
+  const PERSON_LABELS = { Prospect1:"Gustavo Xavier", Prospect2:"Prospect 2", Luis:"Luis" };
   let trendChart=null, volChart=null, gaugeCharts=[];
   let fileHandle = null; // FileSystemFileHandle (quando suportado pelo navegador)
 
@@ -747,10 +750,10 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       });
       return out.length ? out : null;
     }
-    const prospect1 = extractPerson("Prospect 1");
+    const prospect1 = extractPerson("Gustavo Xavier") || extractPerson("Prospect 1");
     const prospect2 = extractPerson("Prospect 2");
     const luis = extractPerson("Luis");
-    if(!prospect1 && !prospect2 && !luis) throw new Error("Não encontrei as abas \"Prospect 1\", \"Prospect 2\" ou \"Luis\" nesse arquivo.");
+    if(!prospect1 && !prospect2 && !luis) throw new Error("Não encontrei as abas \"Gustavo Xavier\", \"Prospect 2\" ou \"Luis\" nesse arquivo.");
     if(prospect1) DATA.Prospect1 = prospect1;
     if(prospect2) DATA.Prospect2 = prospect2;
     if(luis) DATA.Luis = luis;
@@ -1086,7 +1089,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         {label:"Reuniões realizadas", val:porPessoa.Luis},
         {label:"Ligações realizadas", val:ligPorPessoa.Luis},
       ]},
-      {lbl:"Reuniões Realizadas — Prospect 1", val:porPessoa.Prospect1, subs:[
+      {lbl:"Reuniões Realizadas — Gustavo Xavier", val:porPessoa.Prospect1, subs:[
         {label:"Reuniões agendadas", val:agendadasPorPessoa.Prospect1},
         {label:"Reuniões realizadas", val:porPessoa.Prospect1},
         {label:"Ligações realizadas", val:ligPorPessoa.Prospect1},

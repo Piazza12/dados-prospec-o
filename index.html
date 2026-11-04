@@ -560,7 +560,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
           <label>Período<input type="text" id="funilIn_periodo" placeholder="ex.: Outubro/2026"></label>
           <label>MQL<input type="number" min="0" step="1" id="funilIn_mql"></label>
           <label>SQL<input type="number" min="0" step="1" id="funilIn_sql"></label>
-          <label>Cotações recebidas<input type="number" min="0" step="1" id="funilIn_cotacoes"></label>
+          <label>Cotações recebidas (observação)<input type="number" min="0" step="1" id="funilIn_cotacoes"></label>
           <label>Reuniões realizadas<input type="number" min="0" step="1" id="funilIn_reunioes"></label>
           <label>Cotações efetivadas<input type="number" min="0" step="1" id="funilIn_efetivadas"></label>
           <div class="funil-form-actions">
@@ -569,7 +569,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
           </div>
         </div>
         <div id="funilBody"></div>
-        <div class="funil-note">Números lançados manualmente (não seguem o filtro de datas). A largura das barras acompanha a ordem das etapas; os valores reais estão em cada barra. Para alterar, ative o Modo Admin, edite e use "Publicar para todos".</div>
+        <div class="funil-note" id="funilObs"></div>
+        <div class="funil-note">Números lançados manualmente (não seguem o filtro de datas). A largura das barras acompanha a ordem das etapas, não a proporção. Para alterar, ative o Modo Admin, edite e use "Publicar para todos".</div>
       </div>
       <div class="leads-scope-note" id="leadsScopeNote"></div>
       <div class="kpis" id="leadsKpiRow"></div>
@@ -714,7 +715,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   let METAS = JSON.parse(JSON.stringify(DEFAULT_METAS));
 
   // Funil de Leads (aba Controle de Leads) — lançado manualmente e publicado no data.json (chave FUNIL)
-  const DEFAULT_FUNIL = { periodo:"", mql:541, sql:89, cotacoes:236, reunioes:64, efetivadas:19 };
+  const DEFAULT_FUNIL = { periodo:"", mql:541, sql:89, cotacoes:236, reunioes:68, efetivadas:19 };
   let FUNIL = Object.assign({}, DEFAULT_FUNIL);
   function loadFunil(){
     try{
@@ -734,10 +735,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     const pct = (a,b)=> n(b) > 0 ? (n(a)/n(b)*100).toLocaleString("pt-BR",{minimumFractionDigits:1, maximumFractionDigits:1}) + "%" : "—";
     const etapas = [
       { l:"MQL",                 v:FUNIL.mql,        w:100, c:null },
-      { l:"SQL",                 v:FUNIL.sql,        w:86,  c:[pct(FUNIL.sql, FUNIL.mql), "dos MQLs"] },
-      { l:"Cotações recebidas",  v:FUNIL.cotacoes,   w:72,  c:null },
-      { l:"Reuniões realizadas", v:FUNIL.reunioes,   w:58,  c:[pct(FUNIL.reunioes, FUNIL.sql), "dos SQLs"] },
-      { l:"Cotações efetivadas", v:FUNIL.efetivadas, w:44,  c:[pct(FUNIL.efetivadas, FUNIL.cotacoes), "das cotações"], final:true }
+      { l:"SQL",                 v:FUNIL.sql,        w:82,  c:[pct(FUNIL.sql, FUNIL.mql), "dos MQLs"] },
+      { l:"Reuniões realizadas", v:FUNIL.reunioes,   w:64,  c:[pct(FUNIL.reunioes, FUNIL.sql), "dos SQLs"] },
+      { l:"Cotações efetivadas", v:FUNIL.efetivadas, w:46,  c:[pct(FUNIL.efetivadas, FUNIL.cotacoes), "das cotações recebidas"], final:true }
     ];
     body.innerHTML = etapas.map(e=>
       `<div class="funil-row">
@@ -745,6 +745,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         <div class="funil-conv">${e.c ? `<strong>${e.c[0]}</strong>${e.c[1]}` : ""}</div>
       </div>`
     ).join("");
+    document.getElementById("funilObs").innerHTML = `<strong>Observação:</strong> foram recebidas ${fmtInt(FUNIL.cotacoes)} cotações${FUNIL.periodo ? "" : " no período"}; ${fmtInt(FUNIL.efetivadas)} foram efetivadas (${pct(FUNIL.efetivadas, FUNIL.cotacoes)} das cotações recebidas).`;
     document.getElementById("funilPeriodo").textContent = FUNIL.periodo ? ("Período: " + FUNIL.periodo) : "";
     document.getElementById("btnFunilEdit").classList.toggle("hidden", !getAdminToken());
     if(!getAdminToken()) document.getElementById("funilForm").classList.add("hidden");

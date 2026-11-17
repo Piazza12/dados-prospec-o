@@ -329,6 +329,8 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   .gap-table .falta{font-weight:800; color:#9B2C2C; font-size:14px;}
   .gap-table .falta.ok{color:#1F7A4D; font-size:12px;}
   .gap-table .ritmo{color:var(--text-muted);}
+  .thermo-stat-compact .s-meta-row{margin-top:0;}
+  .thermo-stat-compact .s-sub{margin-top:6px;}
 
   .thermo-numbers{
     background:var(--navy); border-radius:8px; padding:10px 12px; margin-bottom:14px; text-align:left;
@@ -1642,18 +1644,13 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         const metaP = metaAbs[rf.key];
         const p = Math.min(metaPctAnchored(real, m[rf.metaField], scale), 999);
         return `
-        <div class="thermo-stat">
-          <div class="s-top">
-            <span class="s-label">${rf.label}</span>
-            <span class="s-pct-badge" style="background:${bandColor(p)}">${p.toFixed(0)}%</span>
-          </div>
-          <div class="s-value">${real.toLocaleString('pt-BR')}</div>
-          <div class="s-sub">Meta do período: ${metaP.toFixed(1).replace('.0','')}</div>
+        <div class="thermo-stat thermo-stat-compact">
           <div class="s-meta-row">
-            <label for="meta-${person}-${rf.metaField}">Meta (${rf.metaLabel}):</label>
+            <label for="meta-${person}-${rf.metaField}">Meta mensal de reuniões</label>
             <input type="number" min="0" step="1" id="meta-${person}-${rf.metaField}"
                    value="${METAS[person][rf.metaField]}" data-person="${person}" data-field="${rf.metaField}">
           </div>
+          <div class="s-sub">Meta do período filtrado: <strong>${metaP.toFixed(1).replace('.0','')}</strong> reuniões</div>
         </div>`;
       }).join("");
 

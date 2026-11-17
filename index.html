@@ -200,6 +200,14 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   }
   .kpi .kpi-sub{display:flex; flex-direction:column; gap:1px;}
   .kpi .kpi-sub-label{font-size:10px; text-transform:uppercase; letter-spacing:.4px; color:rgba(255,255,255,.65); font-weight:700;}
+  .kpi .kpi-faltas{margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,.18);}
+  .kpi .kpi-faltas-title{font-size:10px; text-transform:uppercase; letter-spacing:.4px; color:rgba(255,255,255,.65); font-weight:700; margin-bottom:6px;}
+  .kpi .kpi-faltas-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:6px;}
+  .kpi .kpi-falta{background:rgba(255,255,255,.08); border-radius:6px; padding:6px 4px; display:flex; flex-direction:column; align-items:center; gap:1px;}
+  .kpi .kf-tier{font-size:10px; font-weight:700; color:var(--gold-light);}
+  .kpi .kf-val{font-size:18px; font-weight:800; font-variant-numeric:tabular-nums;}
+  .kpi .kf-alvo{font-size:9.5px; color:rgba(255,255,255,.6);}
+  .kpi .kpi-falta.ok .kf-val{color:#7be0a8;}
   .kpi .kpi-sub-val{font-size:17px; font-weight:800; color:var(--gold-light); font-variant-numeric:tabular-nums;}
 
   /* ---------- Cards / grid ---------- */
@@ -1198,15 +1206,15 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       {lbl:"Luis", val:porPessoa.Luis, cap:"reuniões realizadas", subs:[
         {label:"Agendadas", val:agendadasPorPessoa.Luis},
         {label:"Ligações", val:ligPorPessoa.Luis},
-      ]},
+      ], faltas:faltasMeta("Luis", porPessoa.Luis)},
       {lbl:"Gustavo Xavier", val:porPessoa.Prospect1, cap:"reuniões realizadas", subs:[
         {label:"Agendadas", val:agendadasPorPessoa.Prospect1},
         {label:"Ligações", val:ligPorPessoa.Prospect1},
-      ]},
+      ], faltas:faltasMeta("Prospect1", porPessoa.Prospect1)},
       {lbl:"BDR 2", val:porPessoa.Prospect2, cap:"reuniões realizadas", subs:[
         {label:"Agendadas", val:agendadasPorPessoa.Prospect2},
         {label:"Ligações", val:ligPorPessoa.Prospect2},
-      ]},
+      ], faltas:faltasMeta("Prospect2", porPessoa.Prospect2)},
     ];
     const el = document.getElementById("kpiRow");
     el.innerHTML = cards.map(c=>`
@@ -1221,6 +1229,18 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
             <span class="kpi-sub-label">${s.label}</span>
             <span class="kpi-sub-val">${s.val.toLocaleString('pt-BR')}</span>
           </div>`).join("")}
+        </div>` : ""}
+        ${c.faltas ? `
+        <div class="kpi-faltas">
+          <div class="kpi-faltas-title">Faltam para a meta</div>
+          <div class="kpi-faltas-grid">
+            ${c.faltas.map(f=>`
+            <div class="kpi-falta ${f.alvo>0 && f.falta===0 ? "ok" : ""}">
+              <span class="kf-tier">${f.tier}%</span>
+              <span class="kf-val">${f.alvo>0 && f.falta===0 ? "✓" : f.falta}</span>
+              <span class="kf-alvo">de ${f.alvo}</span>
+            </div>`).join("")}
+          </div>
         </div>` : ""}
       </div>`).join("");
   }
@@ -1581,6 +1601,16 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       }
     }
     return scale;
+  }
+
+  // Quantas reuniões realizadas faltam para cada meta (70/100/130%) no período filtrado
+  function faltasMeta(person, real){
+    const scale = periodScale();
+    const base = METAS[person].reunioesRealizadasMes;
+    return [70,100,130].map(tier=>{
+      const alvo = Math.round(base * (tier/100) * scale);
+      return {tier, alvo, falta: Math.max(0, alvo - real)};
+    });
   }
 
   function personMetaAbs(person){

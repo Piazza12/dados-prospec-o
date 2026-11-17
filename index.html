@@ -191,16 +191,16 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   }
   .kpi .lbl{font-size:10.5px; text-transform:uppercase; letter-spacing:.5px; color:var(--gold-light); font-weight:700;}
   /* reserva 2 linhas no título dos cards do painel principal: nomes longos (ex.: Gustavo Xavier) quebram sem desalinhar os números */
-  #kpiRow .kpi .lbl{min-height:2.5em;}
+  #kpiRow .kpi .lbl{min-height:1.4em;}
   .kpi .val{font-size:28px; font-weight:800; margin-top:6px; font-variant-numeric:tabular-nums; letter-spacing:-.5px;}
   .kpi .cap{font-size:10.5px; color:rgba(255,255,255,.6); margin-top:2px; font-style:italic;}
   .kpi .kpi-sub-group{
-    margin-top:10px; padding-top:9px; border-top:1px solid rgba(255,255,255,.18);
-    display:flex; flex-direction:column; gap:5px;
+    margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,.18);
+    display:grid; grid-template-columns:1fr 1fr; gap:8px;
   }
-  .kpi .kpi-sub{display:flex; align-items:baseline; justify-content:space-between; gap:8px;}
+  .kpi .kpi-sub{display:flex; flex-direction:column; gap:1px;}
   .kpi .kpi-sub-label{font-size:10px; text-transform:uppercase; letter-spacing:.4px; color:rgba(255,255,255,.65); font-weight:700;}
-  .kpi .kpi-sub-val{font-size:15px; font-weight:800; color:var(--gold-light); font-variant-numeric:tabular-nums;}
+  .kpi .kpi-sub-val{font-size:17px; font-weight:800; color:var(--gold-light); font-variant-numeric:tabular-nums;}
 
   /* ---------- Cards / grid ---------- */
   .grid2{
@@ -333,13 +333,13 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   .thermo-stat-compact .s-sub{margin-top:6px;}
 
   .thermo-numbers{
-    background:var(--navy); border-radius:8px; padding:10px 12px; margin-bottom:14px; text-align:left;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:0;
+    background:#F6F8FB; border:1px solid var(--border); border-radius:8px; margin-bottom:12px;
   }
-  .num-row{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:3px 0; font-size:11.5px; color:rgba(255,255,255,.85);
-  }
-  .num-row strong{color:var(--gold-light); font-size:13px; font-variant-numeric:tabular-nums;}
+  .num-row{display:flex; flex-direction:column; align-items:center; gap:2px; padding:10px 4px; border-right:1px solid #E6EBF2;}
+  .num-row:last-child{border-right:0;}
+  .num-row span{font-size:10px; text-transform:uppercase; letter-spacing:.4px; font-weight:700; color:var(--text-muted); text-align:center;}
+  .num-row strong{color:var(--navy, #1F3864); font-size:20px; font-weight:800; font-variant-numeric:tabular-nums;}
 
   .thermo-stat{background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:10px 14px; margin-bottom:8px;}
   .thermo-stat .s-top{display:flex; align-items:center; justify-content:space-between;}
@@ -1195,20 +1195,17 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     });
     const cards = [
       {lbl:"Ligações Realizadas", val:t.ligacoes, cap:"total no período"},
-      {lbl:"Reuniões Realizadas — Luis", val:porPessoa.Luis, subs:[
-        {label:"Reuniões agendadas", val:agendadasPorPessoa.Luis},
-        {label:"Reuniões realizadas", val:porPessoa.Luis},
-        {label:"Ligações realizadas", val:ligPorPessoa.Luis},
+      {lbl:"Luis", val:porPessoa.Luis, cap:"reuniões realizadas", subs:[
+        {label:"Agendadas", val:agendadasPorPessoa.Luis},
+        {label:"Ligações", val:ligPorPessoa.Luis},
       ]},
-      {lbl:"Reuniões Realizadas — Gustavo Xavier", val:porPessoa.Prospect1, subs:[
-        {label:"Reuniões agendadas", val:agendadasPorPessoa.Prospect1},
-        {label:"Reuniões realizadas", val:porPessoa.Prospect1},
-        {label:"Ligações realizadas", val:ligPorPessoa.Prospect1},
+      {lbl:"Gustavo Xavier", val:porPessoa.Prospect1, cap:"reuniões realizadas", subs:[
+        {label:"Agendadas", val:agendadasPorPessoa.Prospect1},
+        {label:"Ligações", val:ligPorPessoa.Prospect1},
       ]},
-      {lbl:"Reuniões Realizadas — BDR 2", val:porPessoa.Prospect2, subs:[
-        {label:"Reuniões agendadas", val:agendadasPorPessoa.Prospect2},
-        {label:"Reuniões realizadas", val:porPessoa.Prospect2},
-        {label:"Ligações realizadas", val:ligPorPessoa.Prospect2},
+      {lbl:"BDR 2", val:porPessoa.Prospect2, cap:"reuniões realizadas", subs:[
+        {label:"Agendadas", val:agendadasPorPessoa.Prospect2},
+        {label:"Ligações", val:ligPorPessoa.Prospect2},
       ]},
     ];
     const el = document.getElementById("kpiRow");
@@ -1687,9 +1684,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
       const numerosHtml = `
         <div class="thermo-numbers">
-          <div class="num-row"><span>Reuniões agendadas</span><strong>${t.reunioesAgendadas.toLocaleString('pt-BR')}</strong></div>
-          <div class="num-row"><span>Reuniões realizadas</span><strong>${t.reunioesRealizadas.toLocaleString('pt-BR')}</strong></div>
-          <div class="num-row"><span>Ligações realizadas</span><strong>${t.ligacoes.toLocaleString('pt-BR')}</strong></div>
+          <div class="num-row"><span>Agendadas</span><strong>${t.reunioesAgendadas.toLocaleString('pt-BR')}</strong></div>
+          <div class="num-row"><span>Realizadas</span><strong>${t.reunioesRealizadas.toLocaleString('pt-BR')}</strong></div>
+          <div class="num-row"><span>Ligações</span><strong>${t.ligacoes.toLocaleString('pt-BR')}</strong></div>
         </div>`;
 
       return `

@@ -1660,13 +1660,31 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         {label:"Meta 2", target:100},
         {label:"Meta 3", target:130},
       ];
+      // Quanto falta, em reuniões realizadas, para cada meta (70% / 100% / 130% da meta do período)
+      const hojeIso = isoLocal(new Date());
+      let diasRest = 0;
+      if(fim >= hojeIso){
+        const dIni = new Date(((ini > hojeIso) ? ini : hojeIso)+"T00:00:00"), dFim = new Date(fim+"T00:00:00");
+        for(let d = new Date(dIni); d <= dFim; d.setDate(d.getDate()+1)){
+          if(isBusinessDay(isoLocal(d))) diasRest++;
+        }
+      }
+      const realReun = t.reunioesRealizadas;
       const metaGapHtml = metaTiers.map(mt=>{
-        const atingida = overallPct >= mt.target;
-        const falta = Math.max(0, mt.target - overallPct);
+        const alvo = Math.round(m.reunioesRealizadasMes * (mt.target/100) * scale);
+        const falta = Math.max(0, alvo - realReun);
+        const atingida = alvo > 0 && falta === 0;
+        let txt;
+        if(alvo <= 0) txt = "—";
+        else if(atingida) txt = "Atingida ✓";
+        else {
+          txt = `faltam ${falta} ${falta===1?"reunião":"reuniões"}`;
+          if(diasRest > 0) txt += ` · ${(falta/diasRest).toFixed(1).replace('.',',')}/dia útil`;
+        }
         return `
         <div class="meta-gap-row">
-          <span class="meta-gap-label">${mt.label} (${mt.target}%)</span>
-          <span class="meta-gap-val ${atingida ? "ok" : ""}">${atingida ? "Atingida ✓" : `faltam ${falta.toFixed(0)}%`}</span>
+          <span class="meta-gap-label">${mt.label} (${mt.target}% · ${alvo} reuniões)</span>
+          <span class="meta-gap-val ${atingida ? "ok" : ""}">${txt}</span>
         </div>`;
       }).join("");
 
